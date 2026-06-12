@@ -40,7 +40,7 @@ Provide the Vega-Lite data enclosed by the ```<vegalite>``` tags:
 
 This will be rendered by the plugin and shown as:
 
-![The diagram as provided by Vega-Lite](https://github.com/RobertWeinmeister/dokuwiki-vega-lite/blob/main/example.png?raw=true)
+![The diagram as provided by Vega-Lite](https://github.com/RobertWeinmeister/dokuwiki-vegalite/blob/main/example.png?raw=true)
 
 Vega-Lite supports multiple other graphs besides the shown bar chart, for more examples and details on the Vega-Lite syntax, see <https://vega.github.io/vega-lite/examples/>.
 
