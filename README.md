@@ -64,7 +64,7 @@ No further configuration is required.
 
 You can choose which Vega/Vega-Lite/Vega-Embed versions you want to use:
 
-- The locally hosted versions (currently versions 6.2.0/6.4.3/7.1.0) or
+- The locally hosted versions (currently versions 6.4.0/6.5.0/7.3.0) or
 - the remotely hosted, currently available, latest version.
 
 ## License
