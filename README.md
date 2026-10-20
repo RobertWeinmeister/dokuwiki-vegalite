@@ -56,6 +56,13 @@ where #width and #height can take any value supported by CSS, for example:
 
     <vegalite 100% 1cm>
 
+This needs to be used in conjunction with
+
+    "width": "container"
+    "height": "container"
+
+as past of the Vega-Lite data.
+
 ## Configuration and Settings
 
 No further configuration is required.
