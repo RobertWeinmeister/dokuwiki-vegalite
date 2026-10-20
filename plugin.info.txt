@@ -1,7 +1,7 @@
 base   vegalite
 author Robert Weinmeister
 email  develop@weinmeister.org
-date   2026-10-19
+date   2026-10-20
 name   Vega-Lite Plugin
 desc   JavaScript based interactive graphing tool using  concise, declarative JSON syntax
 url    https://www.dokuwiki.org/plugin:vega-lite

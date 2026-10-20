@@ -70,10 +70,6 @@ class action_plugin_vegalite extends \dokuwiki\Extension\ActionPlugin
         } else {
             $wikiText = rawWiki(getID());
         }
-
-        if ('edit'==$ACT) {
-            return false;
-        }
         if (str_contains($wikiText, '<vegalite') || str_contains($wikiText, '{{page>') || str_contains($wikiText, '{{section>') || str_contains($wikiText, '{{namespace>') || str_contains($wikiText, '{{tagtopic>')) {
             return true;
         }
@@ -89,7 +85,7 @@ class action_plugin_vegalite extends \dokuwiki\Extension\ActionPlugin
      */
     public function load(Doku_Event $event, $param): void {
          // only load Vega-Lite if it is needed
-        if (!$this->pageIncludesVegaLite()) {
+        if ('edit'!=$ACT  &&  !$this->pageIncludesVegaLite()) {
             return;
         }
 
@@ -105,5 +101,38 @@ class action_plugin_vegalite extends \dokuwiki\Extension\ActionPlugin
             'type'    => 'text/css',
             'href'    => DOKU_BASE . "lib/plugins/vegalite/vegalite.css",
         ];
+
+        // Create the render function and call it when the page has loaded
+        $event->data['script'][] = [
+            'type'    => 'text/javascript',
+            'charset' => 'utf-8',
+            '_data' => "document.addEventListener('DOMContentLoaded', function() { 
+                if (!window.vegalite_specs)
+                    window.vegalite_specs = {};
+                window.vegalite_render = async function() {  
+                    for (id in vegalite_specs) {
+                        const spec = vegalite_specs[id];
+                        await vegaEmbed('#'+id, spec);
+                    }
+                    window.vegalite_specs = {};
+                }
+                window.vegalite_render();
+            });"
+        ];
+    
+        // add live-preview compatibility (See https://www.dokuwiki.org/devel:js_live_syntax_rendering)
+        $event->data['script'][] = [
+            'type'    => 'text/javascript',
+            'charset' => 'utf-8',
+            '_data' => "document.addEventListener('DOMContentLoaded', function() {             
+                    if (!window.dw_livepreview_callbacks) {
+                        window.dw_livepreview_callbacks = {};
+                    }            
+                    window.dw_livepreview_callbacks['vegalite'] = function() {
+                        return window.vegalite_render();
+                    }            
+            });"
+        ];
+        
     }
 }

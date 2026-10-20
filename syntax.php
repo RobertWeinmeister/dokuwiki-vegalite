@@ -75,16 +75,18 @@ class syntax_plugin_vegalite extends \dokuwiki\Extension\SyntaxPlugin
             switch ($state) {
                 case DOKU_LEXER_ENTER:
                     $values = explode(" ", $match);
-                    $divwidth = count($values) < 2 ? 'auto' : $values[1];
+                    $divwidth = count($values) < 2 ? 'auto' : str_replace('>', '', $values[1]);
                     $divheight = count($values) < 3 ? 'auto' : substr($values[2], 0, -1);
-
-                    $this->vegaliteContent .= '<div id="vegalite" class="vegalite" style="position: relative; width:'.$divwidth.'; height:'.$divheight.'"></div>' . "\r\n";
+                    $this->id = uniqid('vegalite-');
+                    $html = '<div id="'.$this->id.'" class="vegalite" style="position: relative; width:'.$divwidth.'; height:'.$divheight.'"></div>' . "\r\n";
+                    $this->vegaliteContent .= $html;
                 break;
                 case DOKU_LEXER_UNMATCHED:
                     $this->vegaliteContent .=
 '<script type="text/javascript">
-    var yourVlSpec = ' . $match . ";
-    vegaEmbed('#vegalite', yourVlSpec);
+    if (!window.vegalite_specs)
+        window.vegalite_specs = {};
+    window.vegalite_specs["'.$this->id.'"] = '.$match.";
 </script>";
                 break;
                 case DOKU_LEXER_EXIT:
