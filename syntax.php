@@ -81,7 +81,7 @@ class syntax_plugin_vegalite extends \dokuwiki\Extension\SyntaxPlugin
                     $html = '<div id="'.$this->id.'" class="vegalite" style="position: relative; width:'.$divwidth.'; height:'.$divheight.'"></div>' . "\r\n";
                     $this->vegaliteContent .= $html;
                 break;
-                case DOKU_LEXER_UNMATCHED:                
+                case DOKU_LEXER_UNMATCHED:
                     $this->vegaliteContent .=
 '<script type="text/javascript">
     if (!window.vegalite_specs)

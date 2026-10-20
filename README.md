@@ -61,7 +61,7 @@ This needs to be used in conjunction with
     "width": "container"
     "height": "container"
 
-as past of the Vega-Lite data.
+as part of the Vega-Lite data.
 
 ## Configuration and Settings
 
